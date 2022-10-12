@@ -6,41 +6,67 @@ int main()
 {
     //Считать из консоли несколько строк. Определить колчество палиндромов среди них.
     setlocale(LC_ALL, "rus");
+
     const int N = 128;
+    int stringCounts = 16; //Max counts of strings (Or enter <enter>)
     char **arr_str = new char* [N];
+    char *str = new char[N];
     for (int i = 0; i <= N-1; i++)
     {
         arr_str[i] = new char[N];
     }
-    char inp[N];
+
     int i = 0;
-    while (i < 4)
+    int countsPalindromes = 0;
+    while (i < stringCounts)
     {
         cout << "Enter string: ";
-        cin >> arr_str[i];
+        gets(arr_str[i]);
+        if (!((int)arr_str[i][0] >= 32 && (int)arr_str[i][0] <= 126)) break;
         i++;
     }
-    bool flag;
-    for(int j = 0; j < 4; j++)
-    {
-        i = 0;
-        while (i <= N && (int)arr_str[j][i] >= 32 && (int)arr_str[j][i] <= 126)
-        {
-            i++;
-        }
-        //в i количество символов в строке.
-        flag = true;
-        for (int k = 0; k <= i / 2; k++)
-        {
-           // cout << arr_str[j][k] << " ";
-            //cout << "Symbol: " << arr_str[j][k] << " ";
-            //cout << arr_str[j][k] << " and " << arr_str[j][i-k-1] << endl;
-            if (arr_str[j][k] != arr_str[j][i-k-1]) {flag = false; break;}
-        }
-        if (flag == true) cout << "Палиндром: " << arr_str[j] << endl;
-    }
 
-    delete []arr_str;
+    int l, countsSpace, u;
+    bool flag;
+    //Проверка на палиндромы
+    for(int j = 0; j < i; j++)
+    {
+        l = 0;
+        countsSpace = 0;
+        //Поиск количества символов в строке (Заносится в переменную l)
+        while (l <= N && (int)arr_str[j][l] >= 32 && (int)arr_str[j][l] <= 126)
+        {
+            l++;
+        }
+
+        for (int k = 0; k < l; k++)
+        { //Все буквы в нижний регистр
+            if ((int)arr_str[j][k] >= 65 && (int)arr_str[j][k] <= 90)
+            {
+                arr_str[j][k] = char((int)arr_str[j][k] + 32);
+            }
+        }
+        u = 0;
+
+        for (int k = 0; k < l; k++) //Убрать пробелы
+        {
+            if ((int)arr_str[j][k] != 32)  {str[u] = arr_str[j][k]; u++;}
+            else countsSpace++;
+        }
+        arr_str[j] = str;
+        l -= countsSpace; //Итоговая длина фразы без пробелов
+        flag = true;
+        for (int k = 0; k <= l / 2; k++)
+        {
+            if (arr_str[j][k] != arr_str[j][l-k-1]) {flag = false; break;}
+        }
+        if (flag == true) countsPalindromes++; //cout << "Палиндром: " << arr_str[j] << endl;
+    }
+    cout << "Found " << countsPalindromes << " palindromes" << endl;
+    for (int i = 0; i <= N-1; i++)
+    {
+        delete arr_str[i];
+    }
     /*
     //Функция free() - для чистого C
     //Malloc выделяет память и не заполняет её
