@@ -53,6 +53,7 @@ int main()
             if ((int)arr_str[j][k] != 32)  {str[u] = arr_str[j][k]; u++;}
             else countsSpace++;
         }
+        cout << countsSpace << endl;
         arr_str[j] = str;
         l -= countsSpace; //Итоговая длина фразы без пробелов
         flag = true;
@@ -63,10 +64,10 @@ int main()
         if (flag == true) countsPalindromes++; //cout << "Палиндром: " << arr_str[j] << endl;
     }
     cout << "Found " << countsPalindromes << " palindromes" << endl;
-    for (int i = 0; i <= N-1; i++)
-    {
-        delete arr_str[i];
-    }
+
+
+    //Я не знаю как правильно убрать выделенную память
+        delete []arr_str;
     /*
     //Функция free() - для чистого C
     //Malloc выделяет память и не заполняет её
