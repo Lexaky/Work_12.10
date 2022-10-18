@@ -8,6 +8,7 @@ int main()
     setlocale(LC_ALL, "rus");
 
     const int N = 128;
+    int ss;
     int stringCounts = 16; //Max counts of strings (Or enter <enter>)
     char **arr_str = new char* [N];
     char *str = new char[N];
@@ -67,7 +68,11 @@ int main()
 
 
     //Я не знаю как правильно убрать выделенную память
-        delete []arr_str;
+        for (int i = 0; i <= N-1; i++)
+    {
+        delete arr_str[i];
+    }
+        delete arr_str;
     /*
     //Функция free() - для чистого C
     //Malloc выделяет память и не заполняет её
