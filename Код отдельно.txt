@@ -19,6 +19,7 @@ int main()
 
     int i = 0;
     int countsPalindromes = 0;
+
     while (i < stringCounts)
     {
         cout << "Enter string: ";
@@ -54,7 +55,7 @@ int main()
             if ((int)arr_str[j][k] != 32)  {str[u] = arr_str[j][k]; u++;}
             else countsSpace++;
         }
-        cout << countsSpace << endl;
+        delete arr_str[j];
         arr_str[j] = str;
         l -= countsSpace; //Итоговая длина фразы без пробелов
         flag = true;
